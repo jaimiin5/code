@@ -39,7 +39,7 @@
     };
 
     // Debounce function to avoid running on every keystroke
-    const debouncedRunCode = useCallback(debounce(runCode, 4000), [
+    const debouncedRunCode = useCallback(debounce(runCode, 2000), [
       sourceCode,
       selectedLanguage,
     ]);
@@ -57,7 +57,7 @@
           Output
         </Text>
         <Box
-          color={isError ? "red.600" : ""}
+          color={isError ? "red.400" : ""}
           height="90vh"
           p={4}
           border="1px solid"
