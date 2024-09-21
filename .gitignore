@@ -1,8 +1,0 @@
-# Node modules
-node_modules/
-
-# VSCode settings
-.vscode/
-
-# Build output (if applicable)
-dist/
