@@ -1,7 +1,15 @@
 import { Editor } from "@monaco-editor/react";
 import { useRef, useState } from "react";
 import LanguageSelector from "./LanguageSelector";
-import { Box, HStack, Tag, Text, Tooltip } from "@chakra-ui/react";
+import {
+  Box,
+  HStack,
+  Tag,
+  Text,
+  Tooltip,
+  useBreakpointValue,
+  VStack,
+} from "@chakra-ui/react";
 import Output from "./Output";
 import { CODE_SNIPPETS } from "../Constants";
 
@@ -20,9 +28,12 @@ const CodeEditor = () => {
     setSourceCode(CODE_SNIPPETS[language]);
   };
 
+  const Stack = useBreakpointValue({ base: VStack, md: HStack });
+  const width = useBreakpointValue({ base: "100%", md: "50%" });
+  
   return (
-    <HStack h="100vh">
-      <Box w="50%">
+    <Stack h="100vh">
+      <Box w={width}>
         <LanguageSelector
           selectedLanguage={selectedLanguage}
           onSelect={onSelect}
@@ -41,7 +52,7 @@ const CodeEditor = () => {
             }}
             onMount={onMount}
             height="calc(100vh - 90px)"
-            width="calc(50vw - 12px)"
+            width={width === "100%" ? "100%" : `calc(50vw - 12px)`}
             theme="vs-dark"
             defaultLanguage={selectedLanguage}
             defaultValue={CODE_SNIPPETS[selectedLanguage]}
@@ -49,14 +60,14 @@ const CodeEditor = () => {
               minimap: {
                 enabled: false,
               },
-              fontSize: 13.6,
+              fontSize: width === "100%" ? 12 : 13.6,
               cursorStyle: "line",
               wordWrap: "on",
             }}
           />
         </Box>
       </Box>
-      <Box w="50%" display="flex" flexDirection="column">
+      <Box w={width} display="flex" flexDirection="column">
         <Text
           marginTop="15px"
           marginBottom="19px"
@@ -69,7 +80,7 @@ const CodeEditor = () => {
         </Text>
         <Output sourceCode={sourceCode} selectedLanguage={selectedLanguage} />
       </Box>
-    </HStack>
+    </Stack>
   );
 };
 
